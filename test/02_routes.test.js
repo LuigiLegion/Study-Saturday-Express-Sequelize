@@ -212,7 +212,7 @@ describe('Routes', () => {
       });
     });
     describe('DELETE /tests/:id', () => {
-      xit('deletes an instance of test by its id', () => {
+      it('deletes an instance of test by its id', () => {
         return agent
           .delete(`/tests/${crayTest.id}`)
           .expect(204)
