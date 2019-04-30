@@ -28,15 +28,11 @@ app.get('/students', async (req, res, next) => {
 app.get('/students/:id', async (req, res, next) => {
   try {
     const curStudentId = +req.params.id;
-    // console.log(typeof curStudentId, curStudentId);
-    // const allStudentsData = await Student.findAll();
-    // console.log(allStudentsData);
     const curStudentData = await Student.findOne({
       where: {
         id: curStudentId,
       },
     });
-    // console.log(curStudentData);
     if (curStudentData) {
       res.send(curStudentData);
     } else {
@@ -70,24 +66,13 @@ app.post('/students', async (req, res, next) => {
 app.put('/students/:id', async (req, res, next) => {
   try {
     const curStudentId = +req.params.id;
-    // console.log(typeof curStudentId, curStudentId);
     const curUpdate = req.body;
-    // console.log(curUpdate);
-    // const allStudentsData = await Student.findAll();
-    // console.log(allStudents);
-    // const curStudentData = await Student.findOne({
-    //   where: {
-    //     id: curStudentId,
-    //   },
-    // });
-    // console.log(curStudentData);
     const curUpdatedStudent = await Student.update(curUpdate, {
       returning: true,
       where: {
         id: curStudentId,
       },
     });
-    // console.log(curUpdatedStudent[1][0]);
     res.send(curUpdatedStudent[1][0]);
   } catch (error) {
     console.error(error);
@@ -98,23 +83,11 @@ app.put('/students/:id', async (req, res, next) => {
 app.delete('/students/:id', async (req, res, next) => {
   try {
     const curStudentId = +req.params.id;
-    // console.log(typeof curStudentId, curStudentId);
-    // const allStudentsDataPreDeletion = await Student.findAll();
-    // console.log(
-    //   'NUMBER OF STUDENTS PRE DELETION: ',
-    //   allStudentsDataPreDeletion.length
-    // );
     const curStudentDataDeletion = await Student.destroy({
       where: {
         id: curStudentId,
       },
     });
-    // console.log(curStudentDataDeletion);
-    // const allStudentsDataPostDeletion = await Student.findAll();
-    // console.log(
-    //   'NUMBER OF STUDENTS POST DELETION: ',
-    //   allStudentsDataPostDeletion.length
-    // );
     res.statusCode = 204;
     res.send(null);
   } catch (error) {
@@ -153,17 +126,13 @@ app.get('/tests/:id', async (req, res, next) => {
 app.post('/tests/student/:studentId', async (req, res, next) => {
   try {
     const curStudentId = +req.params.studentId;
-    // console.log(typeof curStudentId, curStudentId);
     const newTestSubject = req.body.subject;
-    // console.log('newTestSubject: ', newTestSubject);
     const newTestGrade = req.body.grade;
-    // console.log('newTestGrade: ', newTestGrade);
     const newTest = await Test.create({
       subject: newTestSubject,
       grade: newTestGrade,
       studentId: curStudentId,
     });
-    // console.log('newTest: ', newTest);
     res.statusCode = 201;
     res.send(newTest);
   } catch (error) {
@@ -175,13 +144,11 @@ app.post('/tests/student/:studentId', async (req, res, next) => {
 app.delete('/tests/:id', async (req, res, next) => {
   try {
     const curTestId = +req.params.id;
-    console.log(typeof curTestId, curTestId);
     const curTestDeletion = await Test.destroy({
       where: {
         id: curTestId,
       },
     });
-    console.log(curTestDeletion);
     res.statusCode = 204;
     res.send(null);
   } catch (error) {
