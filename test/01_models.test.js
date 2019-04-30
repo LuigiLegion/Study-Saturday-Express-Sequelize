@@ -102,7 +102,7 @@ describe('Models', function() {
         });
       });
 
-      xit('capitalizes the first letter of the first and last name before save to the DB', () => {
+      it('capitalizes the first letter of the first and last name before save to the DB', () => {
         return newStudent.save().then(savedStudent => {
           expect(savedStudent.firstName).to.equal('Charles');
           expect(savedStudent.lastName).to.equal('Xavier');
