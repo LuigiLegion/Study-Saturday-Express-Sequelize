@@ -140,7 +140,7 @@ describe('Models', function() {
         });
       });
 
-      xit('requires `subject`', () => {
+      it('requires `subject`', () => {
         test.subject = null;
         return test.validate().then(
           () => {
@@ -150,7 +150,7 @@ describe('Models', function() {
         );
       });
 
-      xit('requires `grade`', () => {
+      it('requires `grade`', () => {
         test.grade = null;
         return test.validate().then(
           () => {
