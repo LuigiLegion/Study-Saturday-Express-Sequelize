@@ -3,17 +3,25 @@ const app = express();
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const db = require('./db/db');
+const Student = require('./db/models/student');
+const Test = require('./db/models/test');
 const students = require('./routes/students');
 const tests = require('./routes/tests');
 
 app.use(bodyParser.json());
-
 app.use(bodyParser.urlencoded({ extended: true }));
-
 app.use(morgan('dev'));
-
 app.use('/students', students);
 app.use('/tests', tests);
+
+// My routes:
+
+app.get('/students', async (req, res, next) => {
+  const allStudents = await Student.findAll();
+  res.send(allStudents);
+});
+
+//
 
 app.use((err, req, res, next) => {
   console.error(err.stack);
