@@ -197,7 +197,7 @@ describe('Routes', () => {
           student = newStudent;
         });
       });
-      xit('creates a new Test instance for a student', () => {
+      it('creates a new Test instance for a student', () => {
         return agent
           .post(`/tests/student/${student.id}`)
           .send({

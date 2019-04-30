@@ -149,6 +149,28 @@ app.get('/tests/:id', async (req, res, next) => {
     next(error);
   }
 });
+
+app.post('/tests/student/:studentId', async (req, res, next) => {
+  try {
+    const curStudentId = +req.params.studentId;
+    // console.log(typeof curStudentId, curStudentId);
+    const newTestSubject = req.body.subject;
+    // console.log('newTestSubject: ', newTestSubject);
+    const newTestGrade = req.body.grade;
+    // console.log('newTestGrade: ', newTestGrade);
+    const newTest = await Test.create({
+      subject: newTestSubject,
+      grade: newTestGrade,
+      studentId: curStudentId,
+    });
+    // console.log('newTest: ', newTest);
+    res.statusCode = 201;
+    res.send(newTest);
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+});
 //
 
 app.use((err, req, res, next) => {
