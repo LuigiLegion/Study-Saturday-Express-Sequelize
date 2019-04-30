@@ -37,7 +37,12 @@ app.get('/students/:id', async (req, res, next) => {
       },
     });
     // console.log(curStudentData);
-    res.send(curStudentData);
+    if (curStudentData) {
+      res.send(curStudentData);
+    } else {
+      res.statusCode = 404;
+      res.send('STUDENT DOES NOT EXIST');
+    }
   } catch (error) {
     console.error(error);
   }
