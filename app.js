@@ -175,13 +175,13 @@ app.post('/tests/student/:studentId', async (req, res, next) => {
 app.delete('/tests/:id', async (req, res, next) => {
   try {
     const curTestId = +req.params.id;
-    // console.log(typeof curTestId, curTestId);
+    console.log(typeof curTestId, curTestId);
     const curTestDeletion = await Test.destroy({
       where: {
         id: curTestId,
       },
     });
-    // console.log(curTestDeletion);
+    console.log(curTestDeletion);
     res.statusCode = 204;
     res.send(null);
   } catch (error) {
