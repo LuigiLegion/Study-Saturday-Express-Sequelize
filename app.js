@@ -17,8 +17,30 @@ app.use('/tests', tests);
 // My routes:
 
 app.get('/students', async (req, res, next) => {
-  const allStudents = await Student.findAll();
-  res.send(allStudents);
+  try {
+    const allStudents = await Student.findAll();
+    res.send(allStudents);
+  } catch (error) {
+    console.error(error);
+  }
+});
+
+app.get('/students/:id', async (req, res, next) => {
+  try {
+    const curStudentId = +req.params.id;
+    // console.log(typeof curStudentId, curStudentId);
+    // const allStudentsData = await Student.findAll();
+    // console.log(allStudentsData);
+    const curStudentData = await Student.findOne({
+      where: {
+        id: curStudentId,
+      },
+    });
+    // console.log(curStudentData);
+    res.send(curStudentData);
+  } catch (error) {
+    console.error(error);
+  }
 });
 
 //

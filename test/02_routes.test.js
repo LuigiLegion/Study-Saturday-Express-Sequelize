@@ -66,7 +66,7 @@ describe('Routes', () => {
     });
 
     describe('GET /students/:id', () => {
-      xit('retrieves a single student by their id', () => {
+      it('retrieves a single student by their id', () => {
         return agent
           .get(`/students/${pepper.id}`)
           .expect(200)
