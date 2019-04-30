@@ -82,7 +82,7 @@ describe('Routes', () => {
     });
 
     describe('POST /students', () => {
-      xit('creates a new Student instance', () => {
+      it('creates a new Student instance', () => {
         return agent
           .post('/students')
           .send({

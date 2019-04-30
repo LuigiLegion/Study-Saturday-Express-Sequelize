@@ -22,6 +22,7 @@ app.get('/students', async (req, res, next) => {
     res.send(allStudents);
   } catch (error) {
     console.error(error);
+    next(error);
   }
 });
 
@@ -45,6 +46,25 @@ app.get('/students/:id', async (req, res, next) => {
     }
   } catch (error) {
     console.error(error);
+    next(error);
+  }
+});
+
+app.post('/students', async (req, res, next) => {
+  try {
+    const newStudentFirstName = req.body.firstName;
+    const newStudentLastName = req.body.lastName;
+    const newStudentEmail = req.body.email;
+    const newStudent = await Student.create({
+      firstName: newStudentFirstName,
+      lastName: newStudentLastName,
+      email: newStudentEmail,
+    });
+    res.statusCode = 201;
+    res.send(newStudent);
+  } catch (error) {
+    console.error(error);
+    next(error);
   }
 });
 
