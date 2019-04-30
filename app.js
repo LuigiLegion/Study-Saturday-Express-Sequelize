@@ -18,8 +18,8 @@ app.use('/tests', tests);
 
 app.get('/students', async (req, res, next) => {
   try {
-    const allStudents = await Student.findAll();
-    res.send(allStudents);
+    const allStudentsData = await Student.findAll();
+    res.send(allStudentsData);
   } catch (error) {
     console.error(error);
     next(error);
@@ -62,6 +62,34 @@ app.post('/students', async (req, res, next) => {
     });
     res.statusCode = 201;
     res.send(newStudent);
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+});
+
+app.put('/students/:id', async (req, res, next) => {
+  try {
+    const curStudentId = +req.params.id;
+    console.log(typeof curStudentId, curStudentId);
+    const curUpdate = req.body;
+    console.log(curUpdate);
+    // const allStudentsData = await Student.findAll();
+    // console.log(allStudents);
+    // const curStudentData = await Student.findOne({
+    //   where: {
+    //     id: curStudentId,
+    //   },
+    // });
+    // console.log(curStudentData);
+    const curUpdatedStudent = await Student.update(curUpdate, {
+      returning: true,
+      where: {
+        id: curStudentId,
+      },
+    });
+    // console.log(curUpdatedStudent[1][0]);
+    res.send(curUpdatedStudent[1][0]);
   } catch (error) {
     console.error(error);
     next(error);
