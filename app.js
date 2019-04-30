@@ -14,8 +14,7 @@ app.use(morgan('dev'));
 app.use('/students', students);
 app.use('/tests', tests);
 
-// My routes:
-
+// Student routes:
 app.get('/students', async (req, res, next) => {
   try {
     const allStudentsData = await Student.findAll();
@@ -110,7 +109,7 @@ app.delete('/students/:id', async (req, res, next) => {
         id: curStudentId,
       },
     });
-    console.log(curStudentDataDeletion);
+    // console.log(curStudentDataDeletion);
     // const allStudentsDataPostDeletion = await Student.findAll();
     // console.log(
     //   'NUMBER OF STUDENTS POST DELETION: ',
@@ -123,7 +122,18 @@ app.delete('/students/:id', async (req, res, next) => {
     next(error);
   }
 });
+//
 
+// Test routes:
+app.get('/tests', async (req, res, next) => {
+  try {
+    const allTestsData = await Test.findAll();
+    res.send(allTestsData);
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+});
 //
 
 app.use((err, req, res, next) => {
@@ -135,7 +145,7 @@ const init = async () => {
   if (require.main === module) {
     //will only run when run with npm start and not with npm test to avoid db syncing in multiple threads when running tests
     try {
-      await db.sync();
+      await db.sync({ logging: false, force: false });
       app.listen(3000, () => {
         console.log('Server is listening on port 3000!');
       });

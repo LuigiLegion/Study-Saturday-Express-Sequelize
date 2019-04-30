@@ -164,7 +164,7 @@ describe('Routes', () => {
     });
 
     describe('GET /tests', () => {
-      xit('retrieves all tests', () => {
+      it('retrieves all tests', () => {
         return agent
           .get('/tests')
           .expect(200)
