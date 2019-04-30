@@ -176,7 +176,7 @@ describe('Routes', () => {
     });
 
     describe('GET /tests/:id', () => {
-      xit('gets the test instance by id', () => {
+      it('gets the test instance by id', () => {
         return agent
           .get(`/tests/${funTest.id}`)
           .expect(200)

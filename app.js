@@ -134,6 +134,21 @@ app.get('/tests', async (req, res, next) => {
     next(error);
   }
 });
+
+app.get('/tests/:id', async (req, res, next) => {
+  try {
+    const curTestId = +req.params.id;
+    const curTestData = await Test.findOne({
+      where: {
+        id: curTestId,
+      },
+    });
+    res.send(curTestData);
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+});
 //
 
 app.use((err, req, res, next) => {
